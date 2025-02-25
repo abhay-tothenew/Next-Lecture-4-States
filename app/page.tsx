@@ -14,6 +14,10 @@ export default function Home() {
       <Link href = "/redux" className="text-blue-500 hover:text-blue-600">
         Go to redux
       </Link>
+
+      <Link href = "/useContext" className="text-blue-500 hover:text-blue-600">
+        Go to useContext
+      </Link>
       </div>
     </div>
   )

@@ -4,6 +4,7 @@
 // import "./globals.css";
 import { Provider } from "react-redux";
 import store from "./redux-toolkit/store";
+import DataProvider from "./utils/context";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -28,10 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <DataProvider>
         <Provider store={store}>
         {children}
         </Provider>
+        </DataProvider>
       </body>
     </html>
   );
 }
+
+
