@@ -84,7 +84,9 @@ export default function UseReducer() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center border-b-2">UseReducer Hook Usage</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center border-b-2">
+        UseReducer Hook Usage
+      </h1>
 
       {state.loading ? (
         <p className="text-center text-gray-500">Loading...</p>
