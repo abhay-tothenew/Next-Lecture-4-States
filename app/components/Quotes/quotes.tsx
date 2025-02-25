@@ -20,7 +20,7 @@ export default function Quotes() {
       <ul>
         {quotes.map((quote) => (
           <li key={quote.id} className="mt-4 border-b pb-2">
-            <p className="italic">"{quote.quote}"</p>
+            <p className="italic">&quot;{quote.quote}&quot;</p>
             <p className="font-semibold">- {quote.author}</p>
           </li>
         ))}

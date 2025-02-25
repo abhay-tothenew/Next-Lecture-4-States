@@ -1,5 +1,5 @@
 "use client";
-import { createContext, use, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 interface Product {
   id: number;
@@ -27,7 +27,6 @@ export default function DataProvider({
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,6 +34,9 @@ export default function DataProvider({
         const data = await response.json();
         setData(data.products);
         setLoading(false);
+        if(error === ""){
+          setError("error");
+        }
       } catch (error) {
         alert(error);
         setLoading(false);

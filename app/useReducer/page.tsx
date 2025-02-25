@@ -2,7 +2,7 @@
 
 import { useEffect, useReducer, useState } from "react";
 
-const initialState = {
+const initialState: State = {
   products: [],
   loading: true,
   error: null,
@@ -13,18 +13,19 @@ interface Product {
   title: string;
   price: number;
 }
+
 interface State {
   products: Product[];
   loading: boolean;
-  error: any;
+  error: string | null;
 }
 
-interface Action {
-  type: "getProducts" | "addProducts" | "removeProducts";
-  payload: any;
-}
+type Action =
+  | { type: "getProducts"; payload: Product[] }
+  | { type: "addProducts"; payload: Product }
+  | { type: "removeProducts"; payload: number };
 
-const reducer = (state: State, action: Action) => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "getProducts":
       return { ...state, products: action.payload, loading: false };
@@ -35,9 +36,7 @@ const reducer = (state: State, action: Action) => {
     case "removeProducts":
       return {
         ...state,
-        products: state.products.filter(
-          (product: Product) => product.id !== action.payload
-        ),
+        products: state.products.filter((product) => product.id !== action.payload),
       };
 
     default:
@@ -54,14 +53,15 @@ export default function UseReducer() {
     const fetchProducts = async () => {
       try {
         const response = await fetch("https://dummyjson.com/products");
-        const data = await response.json();
+        if (!response.ok) throw new Error("Failed to fetch products");
 
+        const data = await response.json();
         dispatch({
           type: "getProducts",
           payload: data.products.slice(0, 10),
         });
       } catch (err) {
-        alert("Error fetching products");
+        console.error(err);
       }
     };
 
@@ -84,9 +84,7 @@ export default function UseReducer() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center border-b-2">
-        UseReducer Hook Usage
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-center border-b-2">UseReducer Hook Usage</h1>
 
       {state.loading ? (
         <p className="text-center text-gray-500">Loading...</p>
@@ -94,7 +92,7 @@ export default function UseReducer() {
         <div>
           <h2 className="text-xl font-semibold mb-2">Products</h2>
           <ul className="space-y-3">
-            {state.products.map((product: Product) => (
+            {state.products.map((product) => (
               <li
                 key={product.id}
                 className="border p-4 rounded-lg shadow-md flex justify-between items-center"
