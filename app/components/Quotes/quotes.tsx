@@ -16,7 +16,7 @@ export default function Quotes() {
     <div className="p-6">
       <h1 className="text-2xl font-bold">Quotes</h1>
       {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {!error && <p className="text-red-500">{error}</p>}
       <ul>
         {quotes.map((quote) => (
           <li key={quote.id} className="mt-4 border-b pb-2">
